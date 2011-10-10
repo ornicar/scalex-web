@@ -9,6 +9,8 @@ $(function() {
   if (query = getParameterByName("q")) {
     $input.val(query);
     search(query);
+  } else if (query = $input.val()) {
+    search(query);
   }
 
   $input.bind("keyup", function() {
