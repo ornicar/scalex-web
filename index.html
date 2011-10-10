@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <title>Scala documentation search engine</title>
-    <meta name="description" content="Web client for Ophir, the scala hoogle-like">
+    <meta name="description" content="Web client for Scalex, the scala hoogle-like">
     <meta name="author" content="http://github.com/ornicar">
 
     <!--[if lt IE 9]>
@@ -18,55 +18,64 @@
 
   <body>
 
-    <div class="container">
+    <div class="page-header clearfix">
+      <h1><a href="/">scalex</a></h1>
+      <form class="search-form" data-url="http://ophir.lichess.org:8080/ophir-http/" action="">
+        <input autocomplete="off" type="search" name="q" class="search xlarge" size=40 />
+      </form>
+    </div>
 
-      <div class="content">
-        <div class="page-header clearfix">
-          <h1><a href="/">Ophir</a></h1>
-          <form class="search-form" data-url="http://ophir.lichess.org:8080/ophir-http/" action="">
-            <input type="text" name="q" class="search xlarge" size=40 />
-          </form>
-        </div>
-        <div class="row">
-          <div class="span12 greetings">
-            <div class="inner">
-              <h2>Scaladoc search engine</h2>
-              Much like <a href="http://www.haskell.org/hoogle/">Hoogle</a> for Haskell, Ophir lets you find Scala functions quickly.<br />
-              <br />
-              <ul>
-                <li><code>map</code> Search for the text "map"</li>
-                <li><code>list map</code> Search for the text "list" and the text "map"</li>
-                <li><code>A => A</code> Search for the type "A => A"</li>
-                <li><code>: A => A</code> Search for the type "A => A"</li>
-                <li><code>a</code> Search for the text "a"</li>
-                <li><code>map : List[A] => (A => B) => List[B]</code> Search for the text "map" and the type "List[A] => (A => B) => List[B]"</li>
-              </ul>
-
-              Searches can be either textual (a list of words), or by type (a type signature) or both. A type search may optionally start with a <code>:</code> symbol. A search is considered a text search unless it contains a combination of text and symbols, or if it starts with <code>:</code>. To search for both a type and a name, place a <code>:</code> between them, for example <code>size : List[A] => Int</code>
-            </div>
-          </div>
-          <div class="span12 search-results">
-          </div>
-          <div class="span4">
+    <div class="container-fluid content">
+        <div class="sidebar">
+          <div class="inner">
+            Note: scalex is still under construction.
+            <!--<ul>-->
+              <!--<li>Scala standard</li>-->
+              <!--<li>Scalaz</li>-->
+              <!--<li>Salat</li>-->
+              <!--<li>Scalatra</li>-->
+            <!--</ul>-->
           </div>
         </div>
-        <section id="search-result-template" class="search-result">
-          <header class="head">
-            <span class="parent parent-class">List</span><span class="parent parent-params">[+A]</span>
-            <strong class="name">foldLeft</strong><span class="type-params">[B]</span><span class"type-sep">: </span>
-            <span class="params">(z: B)(f: (B => A => B))</span><span class"type-sep">: </span>
-            <span class="return">B</span>
-          </header>
-          <p class="comment">Applies a binary operator to a start value and all elements of this list,going left to right.</p>
-          <p class="qualified-name">collection.immutable.List#foldLeft</p>
-        </section>
+        <div class="main row clearfix">
+          <div class="inner greetings">
+            <h2>Scaladoc Index</h2>
+            Much like <a href="http://www.haskell.org/hoogle/">Hoogle</a> for Haskell, Scalex lets you find Scala functions quickly.<br />
+            <br />
+            <ul>
+              <li><code>map</code> Search for the text "map"</li>
+              <li><code>list map</code> Search for the text "list" and the text "map"</li>
+              <li><code>A => A</code> Search for the type "A => A"</li>
+              <li><code>: A => A</code> Search for the type "A => A"</li>
+              <li><code>a</code> Search for the text "a"</li>
+              <li><code>map : List[A] => (A => B) => List[B]</code> Search for the text "map" and the type "List[A] => (A => B) => List[B]"</li>
+            </ul>
+
+            Searches can be either textual (a list of words), or by type (a type signature) or both. A type search may optionally start with a <code>:</code> symbol. A search is considered a text search unless it contains a combination of text and symbols, or if it starts with <code>:</code>. To search for both a type and a name, place a <code>:</code> between them, for example <code>size : List[A] => Int</code>
+          </div>
+          <div class="search-results">
+          </div>
+        </div>
       </div>
-
-      <footer>
-      <p><a href="http://github.com/ornicar">Thibault Duplessis</a></p>
-      </footer>
-
     </div> <!-- /container -->
+
+    <footer class="footer">
+    <p><a href="http://github.com/ornicar/scalex">Source code on GitHub</a> | <a href="http://github.com/ornicar">Thibault Duplessis</a></p>
+    </footer>
+
+    <!-- result template -->
+    <section id="search-result-template" class="search-result">
+      <header class="head">
+        <span class="parent parent-class">List</span><span class="parent parent-params">[+A]</span>
+        <strong class="name">foldLeft</strong><span class="type-params">[B]</span><span class="type-sep">: </span>
+        <span class="params">(z: B)(f: (B => A => B))</span><span class="type-sep">: </span>
+        <span class="return">B</span>
+      </header>
+      <p class="comment">Applies a binary operator to a start value and all elements of this list,going left to right.</p>
+      <div class="more">
+        <p class="qualified-name">collection.immutable.List#foldLeft</p>
+      </div>
+    </section>
 
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js"></script>
     <script src="client.js"></script>

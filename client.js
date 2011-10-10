@@ -1,7 +1,7 @@
 $(function() {
 
   var $form = $("form.search-form");
-  var $input = $form.find("input").focus();
+  var $input = $form.find("input");
   var $results = $(".search-results");
   var $resultTpl = $("#search-result-template");
   var $greetings = $(".greetings");
@@ -10,19 +10,34 @@ $(function() {
   if (query = getParameterByName("q")) {
     $input.val(query);
     search(query);
+    toggle("search")
   } else if (query = $input.val()) {
     search(query);
+    toggle("search")
+  } else {
+    toggle("greetings");
   }
 
   $input.bind("keyup", function() {
+    if (xhr) xhr.abort();
     if ($input.val() == "") {
-        $greetings.show();
-        $results.hide();
+      toggle("greetings")
     } else {
-      if (xhr) xhr.abort();
+      toggle("search")
       xhr = search($input.val());
     }
   });
+
+  function toggle(section) {
+    if (section == "search") {
+        $greetings.hide();
+        $results.show();
+    } else {
+        $greetings.show();
+        $results.hide();
+    }
+  }
+
 
   function search(query) {
     return $.ajax({
@@ -31,12 +46,12 @@ $(function() {
       dataType: "jsonp",
       success: function(data) {
         if (data.error) {
-          var html = "<pre>"+nl2br(data.error)+"</pre>"
+          var html = "<div class=\"error\">"+nl2br(data.error)+"</pre>"
         } else {
           var html = renderResults(data.results);
         }
-        $greetings.hide();
-        $results.show().html(html);
+        $results.html(html)
+        toggle("search")
       }
     });
   }
