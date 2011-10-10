@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Scala documentation search engine</title>
+    <meta name="description" content="Web client for Ophir, the scala hoogle-like">
+    <meta name="author" content="http://github.com/ornicar">
+
+    <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <link href="bootstrap/bootstrap.min.css" rel="stylesheet">
+    <link href="style.css" rel="stylesheet">
+
+    <link rel="shortcut icon" href="images/favicon.ico">
+  </head>
+
+  <body>
+
+    <div class="container">
+
+      <div class="content">
+        <div class="page-header clearfix">
+          <h1>Ophir</h1>
+          <form class="search-form" data-url="http://ophir:8080/" action="">
+            <input type="text" name="q" class="xlarge" size=40 />
+          </form>
+        </div>
+        <div class="row">
+          <div class="span12 search-results">
+          </div>
+          <div class="span4">
+            <h3>Secondary content</h3>
+          </div>
+        </div>
+        <section id="search-result-template" class="search-result">
+          <header class="head">
+            <span class="parent parent-class">List</span><span class="parent parent-params">[+A]</span>
+            <strong class="name">foldLeft</strong><span class="type-params">[B]</span><span class"type-sep">: </span>
+            <span class="params">(z: B)(f: (B => A => B))</span><span class"type-sep">: </span>
+            <span class="return">B</span>
+          </header>
+          <p class="comment">Applies a binary operator to a start value and all elements of this list,going left to right.</p>
+          <p class="qualified-name">collection.immutable.List#foldLeft</p>
+        </section>
+      </div>
+
+      <footer>
+      <p><a href="http://github.com/ornicar">Thibault Duplessis</a></p>
+      </footer>
+
+    </div> <!-- /container -->
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js"></script>
+    <script src="client.js"></script>
+  </body>
+</html>
+
