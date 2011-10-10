@@ -22,10 +22,18 @@ $(function() {
       data: { q: query },
       dataType: "jsonp",
       success: function(data) {
-        var html = renderResults(data.results);
+        if (data.error) {
+          var html = "<pre>"+nl2br(data.error)+"</pre>"
+        } else {
+          var html = renderResults(data.results);
+        }
         $results.html(html)
       }
     });
+  }
+
+  function nl2br(str) {
+    return (str + '').replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1' + '<br />' + '$2');
   }
 
   function renderResults(results) {
