@@ -15,6 +15,17 @@ html, body {
   text-align: center; /* center align it with the container */
 }
 
+h1 a {
+  color: #404040;
+}
+
+.greetings .inner {
+  padding-right: 1em;
+}
+.greetings ul {
+  margin-top: 1em;
+}
+
 /* The white background content wrapper */
 .content {
   background-color: #fff;
@@ -29,6 +40,7 @@ html, body {
 }
 
 .search-results {
+  display: none;
   font-family: monospace;
   font-size: 15px;
 }
@@ -68,6 +80,14 @@ html, body {
 
 .page-header form {
   margin-left: 20px;
+}
+
+.page-header input.search {
+  width: 400px;
+  height: 25px;
+  font-size: 18px;
+  padding-left: 7px;
+  font-family: monospace;
 }
 
 /* Styles you shouldn't keep as they are for displaying this base example only */

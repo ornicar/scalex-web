@@ -1,9 +1,10 @@
 $(function() {
 
   var $form = $("form.search-form");
-  var $input = $form.find("input");
+  var $input = $form.find("input").focus();
   var $results = $(".search-results");
   var $resultTpl = $("#search-result-template");
+  var $greetings = $(".greetings");
   var xhr;
 
   if (query = getParameterByName("q")) {
@@ -14,8 +15,13 @@ $(function() {
   }
 
   $input.bind("keyup", function() {
-    if (xhr) xhr.abort();
-    xhr = search($input.val());
+    if ($input.val() == "") {
+        $greetings.show();
+        $results.hide();
+    } else {
+      if (xhr) xhr.abort();
+      xhr = search($input.val());
+    }
   });
 
   function search(query) {
@@ -29,7 +35,8 @@ $(function() {
         } else {
           var html = renderResults(data.results);
         }
-        $results.html(html)
+        $greetings.hide();
+        $results.show().html(html);
       }
     });
   }
