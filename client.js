@@ -23,14 +23,14 @@ $(function() {
     toggle("search");
     xhr = $.ajax({
       url: $form.attr("data-url"),
-      data: { q: query },
+      data: { q: query, callback: "scalex_jc" },
       dataType: "jsonp",
+      jsonp: false,
+      jsonpCallback: "scalex_jc",
+      cache: true,
       success: function(data) {
-        if (data.error) {
-          var html = "<div class=\"error\">"+nl2br(data.error)+"</pre>"
-        } else {
-          var html = renderResults(data.results);
-        }
+        if (data.error) var html = "<div class=\"error\">"+nl2br(data.error)+"</pre>"; 
+        else var html = renderResults(data.results); 
         $results.html(html)
         toggle("search");
       }
@@ -52,10 +52,12 @@ $(function() {
         .find(".name").text(e.name).end()
         .find(".type-params").text(e.typeParams).end()
         .find(".return").text(e.resultType).end()
-        .find(".comment").html(e.comment.html).end()
         .find(".scaladoc-link").html(e.qualifiedName).attr("href", scaladocUrl(e)).end();
-      if (e.valueParams) r.find(".params").text(e.valueParams).end(); 
+      if (e.valueParams) r.find(".params").text(e.valueParams); 
       else  r.find(".params-sep").remove(); 
+      if (c = e.comment) {
+        if (c.short) r.find(".comment-short").html(c.short.html);
+      }
       html += "<div class=\"search-result\">" + r.html() + "</div>";
     }
     return html;
