@@ -7,40 +7,21 @@ $(function() {
   var $greetings = $(".greetings");
   var xhr;
 
-  if (query = getParameterByName("q")) {
-    $input.val(query);
-    search(query);
-    toggle("search")
-  } else if (query = $input.val()) {
-    search(query);
-    toggle("search")
-  } else {
-    toggle("greetings");
-  }
+  if (query = getParameterByName("q")) $input.val(query); 
 
   $input.bind("keyup", function() {
     if (xhr) xhr.abort();
-    if ($input.val() == "") {
-      toggle("greetings")
-    } else {
-      toggle("search")
-      xhr = search($input.val());
-    }
-  });
+    if (query = $input.val()) search(query);
+    else toggle("greetings");
+  }).trigger("keyup");
 
-  function toggle(section) {
-    if (section == "search") {
-        $greetings.hide();
-        $results.show();
-    } else {
-        $greetings.show();
-        $results.hide();
-    }
+  function toggle(s) {
+    $greetings.toggle(s != "search"); $results.toggle(s == "search");
   }
 
-
   function search(query) {
-    return $.ajax({
+    toggle("search");
+    xhr = $.ajax({
       url: $form.attr("data-url"),
       data: { q: query },
       dataType: "jsonp",
@@ -51,20 +32,18 @@ $(function() {
           var html = renderResults(data.results);
         }
         $results.html(html)
-        toggle("search")
+        toggle("search");
       }
     });
   }
 
   function nl2br(str) {
-    return (str + '').replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1' + '<br />' + '$2');
+    return str.replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1' + '<br />' + '$2');
   }
 
   function renderResults(results) {
-    if(results.length == 0) {
-      return "<div class=\"no-results\">Nothing found.</div>";
-    }
-    var html = [], r;
+    if(results.length == 0) { return "<div class=\"no-results\">Nothing found.</div>"; }
+    var html = [], r, e;
     for (var i in results) {
       e = results[i];
       r = $resultTpl.clone()
@@ -73,13 +52,10 @@ $(function() {
         .find(".name").text(e.name).end()
         .find(".type-params").text(e.typeParams).end()
         .find(".return").text(e.resultType).end()
-        .find(".comment").html(e.comment.html ? e.comment.html : e.comment.text).end()
+        .find(".comment").html(e.comment.html).end()
         .find(".scaladoc-link").html(e.qualifiedName).attr("href", scaladocUrl(e)).end();
-      if (e.valueParams) {
-        r.find(".params").text(e.valueParams).end();
-      } else {
-        r.find(".params-sep").remove();
-      }
+      if (e.valueParams) r.find(".params").text(e.valueParams).end(); 
+      else  r.find(".params-sep").remove(); 
       html += "<div class=\"search-result\">" + r.html() + "</div>";
     }
     return html;
@@ -96,9 +72,22 @@ $(function() {
     var regexS = "[\\?&]" + name + "=([^&#]*)";
     var regex = new RegExp(regexS);
     var results = regex.exec(window.location.href);
-    if(results == null)
-      return "";
-    else
-      return decodeURIComponent(results[1].replace(/\+/g, " "));
+    if(results == null) return "";
+    else return decodeURIComponent(results[1].replace(/\+/g, " "));
   }
 });
+
+if (/.+\.scalex\.org/.test(document.domain)) {
+  //analytics
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-7935029-5']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script');
+    ga.type = 'text/javascript';
+    ga.async = true;
+    ga.src = 'http://www.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(ga, s);
+  })();
+}
