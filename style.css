@@ -54,6 +54,9 @@ html, body {
 .sidebar .inner {
   padding: 20px;
 }
+.sidebar .links {
+  margin-top: 20px;
+}
 .main {
   margin-left: 220px;
 }
@@ -92,8 +95,6 @@ html, body {
 .search-result .params,
 .search-result .return {
   color: #791010;
-}
-.search-result .type-sep {
 }
 .search-result .comment {
   font-size: 12px;

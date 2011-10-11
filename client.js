@@ -67,14 +67,18 @@ $(function() {
     var html = [], r;
     for (var i in results) {
       e = results[i];
-      html += "<div class=\"search-result\">" + $resultTpl.clone()
+      r = $resultTpl.clone()
         .find(".parent-class").text(e.parent.name).end()
         .find(".parent-params").text(e.parent.typeParams).end()
         .find(".name").text(e.name).end()
         .find(".type-params").text(e.typeParams).end()
-        .find(".params").text(e.valueParams).end()
-        .find(".return").text(e.resultType).end()
-        .html() + "</div>";
+        .find(".return").text(e.resultType).end();
+      if (e.valueParams) {
+        r.find(".params").text(e.valueParams).end();
+      } else {
+        r.find(".params-sep").remove();
+      }
+      html += "<div class=\"search-result\">" + r.html() + "</div>";
     }
     return html;
   }
