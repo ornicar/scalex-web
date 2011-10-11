@@ -62,10 +62,9 @@ $(function() {
       if (c = e.comment) {
         if (c.short) r.find(".comment-short").html(c.short.html);
         if (c.body) r.find(".comment-body").html(c.body.html);
-        if (c.type) r.find(".comment-result").html(c.result.html);
         if (c.typeParams) r.find(".comment-dl").append(dl(c.typeParams)).show();
         if (c.valueParams) r.find(".comment-dl").append(dl(c.valueParams)).show();
-        if (c.result) r.find(".comment-dl").append(c.result.html).show();
+        if (c.result) r.find(".comment-dl").append("<dt>result</dt><dd>" + c.result.html + "</dd>").show();
         if (c.throws) r.find(".comment-throws").html(dl(c.throws));
       }
       html += "<div class=\"search-result\">" + r.html() + "</div>";
