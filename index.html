@@ -22,52 +22,60 @@
     <div class="page-header clearfix">
       <h1><a href="/">scalex</a></h1>
       <form class="search-form" data-url="http://scalex.org:8080/scalex-http/" action="">
-      <!--<form class="search-form" data-url="http://scalex:8080/" action="">-->
-        <input autocomplete="off" type="search" name="q" class="search xlarge" size=40 />
-      </form>
-    </div>
+        <!--<form class="search-form" data-url="http://scalex:8080/" action="">-->
+          <input autocomplete="off" type="search" name="q" class="search xlarge" size=40 />
+        </form>
+      </div>
 
-    <div class="container-fluid content">
-      <div class="sidebar">
-        <div class="inner">
-          <p>Note: scalex is still under construction.</p>
-          <p>Actually, only scala 2.9.1 library is indexed.</p>
-          <ul class="links">
-            <li><a href="http://www.scala-lang.org/api/current/index.html">Scala 2.9.1 API</a></li>
-            <!--<li>Scalaz</li>-->
-            <!--<li>Salat</li>-->
-            <!--<li>Scalatra</li>-->
-          </ul>
+      <div class="container-fluid content">
+        <div class="sidebar">
+          <div class="inner">
+            <p>Note: scalex is still under construction.</p>
+            <p>Actually, only scala 2.9.1 library is indexed.</p>
+            <p>What's next:</p>
+            <ul>
+              <li>Index popular libraries like scalaz and specs</li>
+              <li>Filter by library/package</li>
+              <li>Document the JSON API</li>
+              <li>Provide more clients, like CLI, VIM, EMACS</li>
+            </ul>
+            <p>Links</p>
+            <ul>
+              <li><a href="http://www.scala-lang.org/api/current/index.html">Scala 2.9.1 API</a></li>
+              <!--<li>Scalaz</li>-->
+              <!--<li>Salat</li>-->
+              <!--<li>Scalatra</li>-->
+            </ul>
+          </div>
+        </div>
+        <div class="main row clearfix">
+          <div class="inner greetings">
+            <h2>Scaladoc Index</h2>
+            Much like <a href="http://www.haskell.org/hoogle/">Hoogle</a> for Haskell, Scalex lets you find Scala functions quickly.<br />
+            <br />
+            <ul>
+              <li><code>map</code> Search for the text "map"</li>
+              <li><code>list map</code> Search for the text "list" and the text "map"</li>
+              <li><code>A => A</code> Search for the type "A => A"</li>
+              <li><code>: A => A</code> Search for the type "A => A"</li>
+              <li><code>a</code> Search for the text "a"</li>
+              <li><code>map : List[A] => (A => B) => List[B]</code> Search for the text "map" and the type "List[A] => (A => B) => List[B]"</li>
+            </ul>
+
+            Searches can be either textual (a list of words), or by type (a type signature) or both. A type search may optionally start with a <code>:</code> symbol. A search is considered a text search unless it contains a combination of text and symbols, or if it starts with <code>:</code>. To search for both a type and a name, place a <code>:</code> between them, for example <code>size : List[A] => Int</code>
+          </div>
+          <div class="search-results">
+          </div>
         </div>
       </div>
-      <div class="main row clearfix">
-        <div class="inner greetings">
-          <h2>Scaladoc Index</h2>
-          Much like <a href="http://www.haskell.org/hoogle/">Hoogle</a> for Haskell, Scalex lets you find Scala functions quickly.<br />
-          <br />
-          <ul>
-            <li><code>map</code> Search for the text "map"</li>
-            <li><code>list map</code> Search for the text "list" and the text "map"</li>
-            <li><code>A => A</code> Search for the type "A => A"</li>
-            <li><code>: A => A</code> Search for the type "A => A"</li>
-            <li><code>a</code> Search for the text "a"</li>
-            <li><code>map : List[A] => (A => B) => List[B]</code> Search for the text "map" and the type "List[A] => (A => B) => List[B]"</li>
-          </ul>
+    </div> <!-- /container -->
 
-          Searches can be either textual (a list of words), or by type (a type signature) or both. A type search may optionally start with a <code>:</code> symbol. A search is considered a text search unless it contains a combination of text and symbols, or if it starts with <code>:</code>. To search for both a type and a name, place a <code>:</code> between them, for example <code>size : List[A] => Int</code>
-        </div>
-        <div class="search-results">
-        </div>
-      </div>
-    </div>
-  </div> <!-- /container -->
+    <footer class="footer">
+    <p><a href="http://github.com/ornicar/scalex">Source code on GitHub</a> | <a href="http://github.com/ornicar">Thibault Duplessis</a></p>
+    </footer>
 
-  <footer class="footer">
-  <p><a href="http://github.com/ornicar/scalex">Source code on GitHub</a> | <a href="http://github.com/ornicar">Thibault Duplessis</a></p>
-  </footer>
-
-  <!-- result template -->
-  <section id="search-result-template" class="search-result">
+    <!-- result template -->
+    <section id="search-result-template" class="search-result">
     <header class="head">
     <span class="parent parent-class"></span><span class="parent parent-params"></span>
     <strong class="name"></strong><span class="type-params"></span><span class="sep">: </span>
@@ -78,10 +86,10 @@
     <div class="more">
       <p class="qualified-name"></p>
     </div>
-  </section>
+    </section>
 
-  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js"></script>
-  <script src="client.js"></script>
-</body>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js"></script>
+    <script src="client.js"></script>
+  </body>
 </html>
 
