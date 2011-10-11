@@ -72,7 +72,8 @@ $(function() {
         .find(".parent-params").text(e.parent.typeParams).end()
         .find(".name").text(e.name).end()
         .find(".type-params").text(e.typeParams).end()
-        .find(".return").text(e.resultType).end();
+        .find(".return").text(e.resultType).end()
+        .find(".comment").html(e.comment.html ? e.comment.html : e.comment.text).end();
       if (e.valueParams) {
         r.find(".params").text(e.valueParams).end();
       } else {
