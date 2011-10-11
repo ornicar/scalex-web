@@ -56,7 +56,7 @@ $(function() {
         .find(".name").text(e.name).end()
         .find(".type-params").text(e.typeParams).end()
         .find(".return").text(e.resultType).end()
-        .find(".scaladoc-link").html(e.qualifiedName).attr("href", scaladocUrl(e)).end();
+        .find(".scaladoc-link").html(e.parent.qualifiedName).attr("href", scaladocUrl(e)).end();
       if (e.valueParams) r.find(".params").text(e.valueParams); 
       else  r.find(".params-sep").remove(); 
       if (c = e.comment) {

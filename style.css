@@ -86,8 +86,12 @@ html, body {
 .search-result p {
   margin: 0;
 }
+.search-result .comment-short {
+  font-family: sans-serif;
+}
 .search-result .more {
   display: none;
+  font-family: sans-serif;
 }
 .search-result.active .more {
   display: block;
