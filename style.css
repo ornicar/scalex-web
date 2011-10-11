@@ -74,19 +74,25 @@ html, body {
 .search-results {
   font-family: monospace;
   font-size: 14px;
+  cursor: pointer;
 }
 .search-result, .no-results {
   padding: 20px 20px;
   border-bottom: 1px solid #eee;
 }
 .search-result:hover {
-  background: #f8f8f8;
+  background: #fff5e8;
 }
 .search-result p {
-  font-size: 14px;
   margin: 0;
 }
 .search-result .more {
+  display: none;
+}
+.search-result.active .more {
+  display: block;
+}
+.search-result.active .comment-short {
   display: none;
 }
 .search-result .parent {
@@ -96,8 +102,8 @@ html, body {
 .search-result .return {
   color: #791010;
 }
-.search-result div.comment {
-  margin-top: 3px;
+.search-result div.more {
+  margin-top: 5px;
 }
 .search-result .shy,
 .search-result .shy p {
@@ -109,6 +115,26 @@ html, body {
 }
 .search-result a.scaladoc-link:hover {
   text-decoration: none;
+}
+
+.search-result dl {
+  margin: 8px 0;
+  padding: 5px 10px;
+  background: #eafaea;
+  border: 1px solid #e0f0e0;
+}
+.search-result dt {
+  display: block;
+  float: left;
+  font-weight: bold;
+}
+.search-result dd {
+  display: block;
+  margin-bottom: 5px;
+  padding-left: 90px;
+}
+.search-result dd p {
+  margin: 0;
 }
 
 .error {
