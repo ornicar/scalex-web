@@ -99,10 +99,16 @@ html, body {
 .search-result div.comment {
   margin-top: 3px;
 }
-.search-result div.comment,
-.search-result div.comment p {
+.search-result .shy,
+.search-result .shy p {
   font-size: 12px;
   color: #888;
+}
+.search-result a.scaladoc-link {
+  text-decoration: underline;
+}
+.search-result a.scaladoc-link:hover {
+  text-decoration: none;
 }
 
 .error {

@@ -73,7 +73,8 @@ $(function() {
         .find(".name").text(e.name).end()
         .find(".type-params").text(e.typeParams).end()
         .find(".return").text(e.resultType).end()
-        .find(".comment").html(e.comment.html ? e.comment.html : e.comment.text).end();
+        .find(".comment").html(e.comment.html ? e.comment.html : e.comment.text).end()
+        .find(".scaladoc-link").html(e.qualifiedName).attr("href", scaladocUrl(e)).end();
       if (e.valueParams) {
         r.find(".params").text(e.valueParams).end();
       } else {
@@ -82,6 +83,12 @@ $(function() {
       html += "<div class=\"search-result\">" + r.html() + "</div>";
     }
     return html;
+  }
+
+  function scaladocUrl(fun) {
+    return "http://www.scala-lang.org/api/current/scala/"
+    + fun.parent.qualifiedName.replace(/\./g, "/") 
+    + ".html"
   }
 
   function getParameterByName(name) {
