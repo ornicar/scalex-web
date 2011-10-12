@@ -76,18 +76,12 @@ html, body {
   font-size: 14px;
   cursor: pointer;
 }
-a.search-result {
-  color: #444;
-  display: block;
-  text-decoration: none;
-}
 .search-result, .no-results {
   padding: 20px 20px;
   border-bottom: 1px solid #eee;
 }
 .search-result:hover {
   background: #fff5e8;
-  text-decoration: none;
 }
 .search-result p {
   margin: 0;
