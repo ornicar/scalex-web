@@ -27,17 +27,17 @@ $(function() {
     toggle("search");
     xhr = $.ajax({
       url: $form.attr("data-url"),
-      data: { q: query, callback: "scalex_jc" },
-      dataType: "jsonp",
-      jsonp: false,
-      jsonpCallback: "scalex_jc",
-      cache: true,
-      success: function(data) {
-        if (data.error) var html = "<div class=\"error\">"+nl2br(data.error)+"</pre>"; 
-        else var html = renderResults(data.results); 
-        $results.html(html)
-        toggle("search");
-      }
+        data: { q: query, callback: "scalex_jc" },
+        dataType: "jsonp",
+        jsonp: false,
+        jsonpCallback: "scalex_jc",
+        cache: true,
+        success: function(data) {
+          if (data.error) var html = "<div class=\"error\">"+nl2br(data.error)+"</pre>"; 
+          else var html = renderResults(data.results); 
+          $results.html(html)
+      toggle("search");
+        }
     });
   }
 
@@ -56,7 +56,14 @@ $(function() {
         .find(".name").text(e.name).end()
         .find(".type-params").text(e.typeParams).end()
         .find(".return").text(e.resultType).end()
-        .find(".scaladoc-link").html(e.parent.qualifiedName).attr("href", scaladocUrl(e)).end();
+        .find(".package").text(e.package).end();
+      var qualName = e.parent.qualifiedName.replace(/\./g, " . ")
+      if (e.package == "scala") {
+        r.find(".scaladoc-link").text(qualName).attr("href", scaladocUrl(e)).show();
+      } else {
+        r.find(".qualified-name").text(qualName).show();
+      }
+
       if (e.valueParams) r.find(".params").text(e.valueParams); 
       else  r.find(".params-sep").remove(); 
       if (c = e.comment) {
@@ -80,8 +87,8 @@ $(function() {
 
   function scaladocUrl(fun) {
     return "http://www.scala-lang.org/api/current/scala/"
-    + fun.parent.qualifiedName.replace(/\./g, "/") 
-    + ".html"
+      + fun.parent.qualifiedName.replace(/\./g, "/") 
+      + ".html"
   }
 
   function getParameterByName(name) {

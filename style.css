@@ -114,6 +114,18 @@ html, body {
   font-size: 12px;
   color: #888;
 }
+.search-result .package {
+  padding: 2px 4px;
+  background: #999;
+  color: #fff;
+  border-radius: 3px;
+  font-size: 12px;
+  margin-right: 5px;
+}
+.search-result a.scaladoc-link,
+.search-result .qualified-name {
+  display: none;
+}
 .search-result a.scaladoc-link {
   text-decoration: underline;
 }
