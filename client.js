@@ -7,6 +7,8 @@ $(function() {
   var $greetings = $(".greetings");
   var xhr;
 
+  //$form.attr("data-url", "http://scalex:8080/");
+
   if (query = getParameterByName("q")) $input.val(query); 
 
   $input.bind("keyup", function() {
@@ -15,7 +17,7 @@ $(function() {
     else toggle("greetings");
   }).trigger("keyup");
 
-  $results.delegate("div.search-result", "click", function() {
+  $results.delegate("a.search-result", "click", function() {
     $(this).toggleClass("active");
   });
 
@@ -47,7 +49,7 @@ $(function() {
 
   function renderResults(results) {
     if(results.length == 0) { return "<div class=\"no-results\">Nothing found.</div>"; }
-    var html = [], r, e;
+    var html = [], r, e, a;
     for (var i in results) {
       e = results[i];
       r = $resultTpl.clone()
@@ -67,7 +69,8 @@ $(function() {
         if (c.result) r.find(".comment-dl").append("<dt>result</dt><dd>" + c.result.html + "</dd>").show();
         if (c.throws) r.find(".comment-throws").html(dl(c.throws));
       }
-      html += "<div class=\"search-result\">" + r.html() + "</div>";
+      a = anchor(e);
+      html += "<a class=\"search-result\" id=\"" + a + "\" href=\"#" + a + "\">" + r.html() + "</a>";
     }
     return html;
   }
