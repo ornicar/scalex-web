@@ -9,30 +9,30 @@ $(function() {
 
   //$form.attr("data-url", "http://scalex:8080/");
 
+  // put request query in the search input
   if (query = getParameterByName("q")) $input.val(query); 
 
+  // instant search
   $input.bind("keyup", function() {
     if (xhr) xhr.abort();
-    if (query = $input.val()) search(query);
-    else toggle("greetings");
+    if (query = $input.val()) search(query); else toggle("greetings");
   }).trigger("keyup");
 
-  $results.delegate("div.search-result", "click", function() {
-    $(this).toggleClass("active");
-  });
+  // expand search results
+  $results.delegate("div.search-result", "click", function() { $(this).toggleClass("active"); });
 
-  function toggle(s) {
-    $greetings.toggle(s != "search"); $results.toggle(s == "search");
-  }
+  // transform code examples to search links
+  $greetings.find('code').each(function() { $(this).wrap('<a href="?q=' + $(this).text() + '">'); });
+
+  // toggle between greetings and search results
+  function toggle(s) { $greetings.toggle(s != "search"); $results.toggle(s == "search"); }
 
   function search(query) {
     toggle("search");
     xhr = $.ajax({
       url: $form.attr("data-url"),
         data: { q: query, callback: "scalex_jc" },
-        dataType: "jsonp",
-        jsonp: false,
-        jsonpCallback: "scalex_jc",
+        dataType: "jsonp", jsonp: false, jsonpCallback: "scalex_jc",
         cache: true,
         success: function(data) {
           if (data.error) var html = "<div class=\"error\">"+nl2br(data.error)+"</pre>"; 
@@ -103,17 +103,12 @@ $(function() {
   }
 });
 
-if (/.+\.scalex\.org/.test(document.domain)) {
-  //analytics
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-7935029-5']);
-  _gaq.push(['_trackPageview']);
+//analytics
+if (/scalex\.org/.test(document.domain)) {
+  var _gaq = _gaq || []; _gaq.push(['_setAccount', 'UA-7935029-5']); _gaq.push(['_trackPageview']);
   (function() {
     var ga = document.createElement('script');
-    ga.type = 'text/javascript';
-    ga.async = true;
-    ga.src = 'http://www.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0];
-    s.parentNode.insertBefore(ga, s);
+    ga.type = 'text/javascript'; ga.async = true; ga.src = 'http://www.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
   })();
 }

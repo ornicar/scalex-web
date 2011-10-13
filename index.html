@@ -58,10 +58,10 @@
             <ul>
               <li><code>map</code> Search for the text "map"</li>
               <li><code>list map</code> Search for the text "list" and the text "map"</li>
-              <li><code>A => A</code> Search for the type "A => A"</li>
-              <li><code>: A => A</code> Search for the type "A => A"</li>
+              <li><code>list[a] => a</code> Search for the type "List[A] => A"</li>
+              <li><code>: list[a] => a</code> Search for the type "List[A] => A"</li>
               <li><code>a</code> Search for the text "a"</li>
-              <li><code>map : List[A] => (A => B) => List[B]</code> Search for the text "map" and the type "List[A] => (A => B) => List[B]"</li>
+              <li><code>map: List[A] => (A => B) => List[B]</code> Search for the text "map" and the type "List[A] => (A => B) => List[B]"</li>
             </ul>
 
             Searches can be either textual (a list of words), or by type (a type signature) or both. A type search may optionally start with a <code>: </code> symbol. A search is considered a text search unless it contains a combination of text and symbols, or if it starts with <code>: </code>. To search for both a type and a name, place a <code>: </code> between them, for example <code>size: List[A] => Int</code>

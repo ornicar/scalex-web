@@ -65,7 +65,6 @@ html, body {
 .main {
   margin-left: 220px;
 }
-
 .greetings, .search-results {
   display: none;
 }
