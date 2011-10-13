@@ -66,7 +66,7 @@
 
             Searches can be either textual (a list of words), or by type (a type signature) or both. A type search may optionally start with a <code>: </code> symbol. A search is considered a text search unless it contains a combination of text and symbols, or if it starts with <code>: </code>. To search for both a type and a name, place a <code>: </code> between them, for example <code>size: List[A] => Int</code>
           </div>
-          <div class="search-results">
+          <div class="results">
           </div>
         </div>
       </div>
@@ -77,21 +77,23 @@
     </footer>
 
     <!-- result template -->
-    <section id="search-result-template" class="search-result">
+    <section id="result-template" class="result">
     <header class="head">
+      <p class="location">
+        <span class="package"></span>
+        <span class="qualified-name"></span>
+      </p>
       <span class="parent parent-class"></span><span class="parent parent-params"></span>
       <strong class="name"></strong><span class="type-params"></span><span class="sep">: </span>
       <span class="params"></span><span class="params-sep">: </span>
       <span class="return"></span>
     </header>
-    <div class="comment-short shy"></div>
+    <div class="comment-short"></div>
     <div class="more">
       <div class="comment-body"></div>
       <dl class="comment-dl"></dl>
       <div class="comment-example"></div>
-      <span class="package"></span>
       <a class="scaladoc-link"></a>
-      <span class="qualified-name"></span>
     </div>
     </section>
 
@@ -100,4 +102,3 @@
     <script src="scalex.js"></script>
   </body>
 </html>
-

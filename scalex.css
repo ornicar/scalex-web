@@ -65,7 +65,7 @@ html, body {
 .main {
   margin-left: 220px;
 }
-.greetings, .search-results {
+.greetings, .results {
   display: none;
 }
 .greetings.inner {
@@ -75,86 +75,91 @@ html, body {
   margin-top: 1em;
 }
 
-.search-results {
+.results {
   font-family: monospace;
   font-size: 14px;
   cursor: pointer;
 }
-.search-result, .no-results {
+.result, .no-results {
   padding: 20px 20px;
   border-bottom: 1px solid #eee;
 }
-.search-result:hover {
+.result:hover {
   background: #fff5e8;
 }
-.search-result p {
+.result p {
   margin: 0;
 }
-.search-result .comment-short {
-  font-family: sans-serif;
-}
-.search-result .more {
+.result .more {
   display: none;
   font-family: sans-serif;
 }
-.search-result.active .more {
+.result.active .more {
   display: block;
 }
-.search-result.active .comment-short {
+.result.active .comment-short {
   display: none;
 }
-.search-result .parent {
+.result .parent {
   color: #448844;
 }
-.search-result .params,
-.search-result .return {
+.result .params,
+.result .return {
   color: #791010;
 }
-.search-result div.more {
-  margin-top: 5px;
-}
-.search-result .shy,
-.search-result .shy p {
+.result .comment-short,
+.result .comment-short p {
+  font-family: sans-serif;
+  margin-top: 3px;
   font-size: 12px;
   color: #888;
 }
-.search-result .package {
+.result div.more {
+  margin-top: 5px;
+}
+.result .location {
+  margin-bottom: 3px;
+}
+.result .package {
   padding: 2px 4px;
-  background: #999;
-  color: #fff;
+  color: #888;
+  background: #f0f0f0;
   border-radius: 3px;
   font-size: 12px;
-  margin-right: 5px;
 }
-.search-result a.scaladoc-link,
-.search-result .qualified-name {
+.result .qualified-name {
+  color: #888;
+  font-size: 12px;
+}
+
+.result a.scaladoc-link {
   display: none;
 }
-.search-result a.scaladoc-link {
+.result a.scaladoc-link {
   text-decoration: underline;
 }
-.search-result a.scaladoc-link:hover {
+.result a.scaladoc-link:hover {
   text-decoration: none;
 }
 
-.search-result dl {
+.result dl {
   display: none;
   margin: 8px 0;
   padding: 5px 10px;
   background: #eafaea;
   border: 1px solid #e0f0e0;
 }
-.search-result dt {
+.result dt {
   display: block;
   float: left;
   font-weight: bold;
 }
-.search-result dd {
+.result dd {
   display: block;
   margin-bottom: 5px;
   padding-left: 90px;
 }
-.search-result dd p {
+.result dd p {
   margin: 0;
 }
 
@@ -168,7 +173,7 @@ html, body {
   font-style: monospace;
 }
 
-#search-result-template {
+#result-template {
   display: none;
 }
 
