@@ -7,6 +7,8 @@ $(function() {
   var $greetings = $(".greetings");
   var xhr;
 
+  //$form.attr("data-url", "http://scalex:8080/");
+
   if (query = getParameterByName("q")) $input.val(query); 
 
   $input.bind("keyup", function() {
