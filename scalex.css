@@ -3,7 +3,7 @@
 
 /* Override some defaults */
 html, body {
-  background-color: #eee;
+  background: #fafafa;
 }
 
 /* Page header tweaks */
@@ -23,11 +23,12 @@ html, body {
 }
 .page-header h1 a {
   font-size: 40px;
-  color: #606060;
+  color: #909090;
+  text-shadow: 0 1px 0 #fff;
 }
 
 .page-header form {
-  margin-left: 200px;
+  margin-left: 180px;
 }
 
 .page-header input.search {
@@ -41,7 +42,6 @@ html, body {
 
 /* The white background content wrapper */
 .content {
-  background-color: #fff;
   padding: 0;
 }
 
@@ -50,20 +50,21 @@ html, body {
   min-height: 500px;
 }
 /* Give a quick and non-cross-browser friendly divider */
-.sidebar {
+.container-fluid .sidebar {
   float: left;
   display: block;
-  width: 219px;
-  border-right: 1px solid #eee;
+  width: 200px;
 }
 .sidebar .inner {
-  padding: 20px;
+  padding: 20px 10px;
 }
 .sidebar .links {
   margin-top: 20px;
 }
 .main {
-  margin-left: 220px;
+  margin-left: 200px;
+  border-left: 1px solid #eee;
+  background-color: #fff;
 }
 .greetings, .results {
   display: none;
@@ -180,6 +181,11 @@ html, body {
 
 #result-template {
   display: none;
+}
+
+footer {
+  margin: 0;
+  padding: 20px;
 }
 
 .footer p {
