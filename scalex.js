@@ -16,10 +16,20 @@ $(function() {
   $input.bind("keyup", function() {
     if (xhr) xhr.abort();
     if (query = $input.val()) search(query); else toggle("greetings");
-  }).trigger("keyup");
+  });
+
+  // first search: jump to url hash if possible
+  if (query = $input.val()) {
+    search(query, function() { 
+      if (window.location.hash && ($fun = $(window.location.hash)).length) {
+        activate($fun);
+        $('html,body').animate({"scrollTop": $fun.offset().top}, 300);
+      }
+    });
+  } else toggle("greetings");
 
   // expand search results
-  $results.delegate("div.result", "click", function() { $(this).toggleClass("active"); });
+  $results.delegate(".signature", "click", function() { activate($(this).closest(".result")); });
 
   // transform code examples to search links
   $greetings.find('code').each(function() { $(this).wrap('<a href="?q=' + $(this).text() + '">'); });
@@ -27,7 +37,12 @@ $(function() {
   // toggle between greetings and search results
   function toggle(s) { $greetings.toggle(s != "search"); $results.toggle(s == "search"); }
 
-  function search(query) {
+  function activate($fun) {
+    $results.find(".active").not($fun).removeClass("active");
+    $fun.toggleClass("active");
+  }
+
+  function search(query, callback) {
     toggle("search");
     xhr = $.ajax({
       url: $form.attr("data-url"),
@@ -38,7 +53,8 @@ $(function() {
           if (data.error) var html = "<div class=\"error\">"+nl2br(data.error)+"</pre>"; 
           else var html = renderResults(data.results); 
           $results.html(html)
-      toggle("search");
+          toggle("search");
+          callback && callback();
         }
     });
   }
@@ -49,8 +65,8 @@ $(function() {
 
   function renderResults(results) {
     if(results.length == 0) { return "<div class=\"no-results\">Nothing found.</div>"; }
-    var html = [];
-    for (var i in results) html += "<div class=\"result\">" + renderResult(results[i]) + "</div>";
+    var html = "";
+    for (var i in results) html += renderResult(results[i]);
     return html;
   }
 
@@ -64,10 +80,10 @@ $(function() {
       .find(".package").text(e.package).end()
       .find(".qualified-name").text(e.parent.qualifiedName).end();
     if (e.package == "scala") {
-      r.find(".scaladoc-link").text(e.parent.qualifiedName.replace(/\./g, " . ")).attr("href", scaladocUrl(e)).show();
+      r.find(".scaladoc-link").text("View " + e.parent.qualifiedName + " on scala-lang API").attr("href", scaladocUrl(e)).show();
     } 
     if (e.valueParams) r.find(".params").text(e.valueParams); 
-    else  r.find(".params-sep").remove(); 
+    else r.find(".params-sep").remove(); 
     if (c = e.comment) {
       if (c.short) r.find(".comment-short").html(c.short.html);
       if (c.body) r.find(".comment-body").html(c.body.html);
@@ -76,7 +92,14 @@ $(function() {
       if (c.result) r.find(".comment-dl").append("<dt>result</dt><dd>" + c.result.html + "</dd>").show();
       if (c.throws) r.find(".comment-throws").html(dl(c.throws));
     }
-    return r.html();
+    var a = anchor(e);
+    r.find(".signature").attr("href", "#" + a);
+    return '<section id="' + a + '" class="result">'+r.html()+'</section>';
+  }
+
+  function anchor(fun) {
+    var parts = [fun.parent.qualifiedName, fun.parent.typeParams, fun.name, fun.typeParams, fun.valueParams, fun.resultType]
+    return $.trim(parts.join()).replace(/\W/g, "");
   }
 
   function dl(obj) {
@@ -86,7 +109,7 @@ $(function() {
   }
 
   function scaladocUrl(fun) {
-    return "http://www.scala-lang.org/api/current/scala/"
+    return "http://www.scala-lang.org/api/current/"
       + fun.parent.qualifiedName.replace(/\./g, "/") 
       + ".html"
   }
