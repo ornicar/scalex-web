@@ -21,85 +21,86 @@
 
     <div class="page-header clearfix">
       <h1><a href="/">scalex</a></h1>
-        <form class="search-form" data-url="http://api.scalex.org/" action="">
-          <input autocomplete="off" type="search" name="q" class="search xlarge" size=40 />
-        </form>
-      </div>
-
-      <div class="container-fluid content">
-        <div class="sidebar">
-          <div class="inner">
-            <p>Note: scalex is still under construction.</p>
-            <p>Actually, only scala 2.9.1 library and scalaz are indexed.</p>
-            <p>What's next:</p>
-            <ul>
-              <li>Index more popular libraries like specs</li>
-              <li>Filter by library/package</li>
-              <li>Document the JSON API</li>
-              <li>Provide more clients, like CLI, VIM, EMACS</li>
-            </ul>
-            <p>Links</p>
-            <ul>
-              <li><a href="http://www.scala-lang.org/api/current/index.html">Scala 2.9.1 API</a></li>
-              <li><a href="http://github.com/ornicar/scalex">Scalex on GitHub</a></li>
-              <li><a href="http://github.com/ornicar/scalex-web">Scalex-web on GitHub</a></li>
-              <li><a href="http://github.com/ornicar/scalex/issues">Issues & requests</a></li>
-              <!--<li>Scalaz</li>-->
-              <!--<li>Salat</li>-->
-              <!--<li>Scalatra</li>-->
-            </ul>
-          </div>
-        </div>
-        <div class="main row clearfix">
-          <div class="inner greetings">
-            <h2>Scaladoc Index</h2>
-            Much like <a href="http://www.haskell.org/hoogle/">Hoogle</a> for Haskell, Scalex lets you find Scala functions quickly.<br />
-            <br />
-            <ul>
-              <li><code>map</code> Search for the text "map"</li>
-              <li><code>list map</code> Search for the text "list" and the text "map"</li>
-              <li><code>list[a] => a</code> Search for the type "List[A] => A"</li>
-              <li><code>: list[a] => a</code> Search for the type "List[A] => A"</li>
-              <li><code>a</code> Search for the text "a"</li>
-              <li><code>map: List[A] => (A => B) => List[B]</code> Search for the text "map" and the type "List[A] => (A => B) => List[B]"</li>
-            </ul>
-
-            Searches can be either textual (a list of words), or by type (a type signature) or both. A type search may optionally start with a <code>: </code> symbol. A search is considered a text search unless it contains a combination of text and symbols, or if it starts with <code>: </code>. To search for both a type and a name, place a <code>: </code> between them, for example <code>size: List[A] => Int</code>
-          </div>
-          <div class="results"></div>
-        </div>
-      </div>
-    </div> <!-- /container -->
-
-    <footer class="footer">
-    <p><a href="http://github.com/ornicar/scalex">Source code on GitHub</a> | <a href="http://github.com/ornicar">Thibault Duplessis</a></p>
-    </footer>
-
-    <!-- result template -->
-    <section id="result-template" class="result">
-    <header class="head">
-      <p class="location">
-        <span class="package"></span>
-        <span class="qualified-name"></span>
-      </p>
-      <a class="signature">
-        <span class="parent parent-class"></span><span class="parent parent-params"></span>
-        <strong class="name"></strong><span class="type-params"></span><span class="sep">: </span>
-        <span class="params"></span><span class="params-sep">: </span>
-        <span class="return"></span>
-      </a>
-    </header>
-    <div class="comment-short"></div>
-    <div class="more">
-      <div class="comment-body"></div>
-      <dl class="comment-dl"></dl>
-      <div class="comment-example"></div>
-      <a class="scaladoc-link"></a>
+      <form class="search-form" data-url="http://api.scalex.org/" action="">
+        <input autocomplete="off" type="search" name="q" class="search xlarge" size=40 />
+      </form>
     </div>
-    </section>
 
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js"></script>
-    <!--<script src="jquery.min.js"></script>-->
-    <script src="scalex.js"></script>
-  </body>
+    <div class="container-fluid content">
+      <div class="sidebar">
+        <div class="inner">
+          <div class="section">
+            <p>Libraries indexed</p>
+            <ul>
+              <li><a href="http://www.scala-lang.org/api/current/index.html">scala 2.9.1 standard</a></li>
+              <li><a href="http://code.google.com/p/scalaz/">scalaz 6.0.3</a></li>
+            </ul>
+          </div>
+          <p>Clients</p>
+          <ul>
+            <li><a href="https://github.com/jonifreeman/Scalex-CLI">CLI (scala)</a></li>
+            <li><a href="https://github.com/ornicar/scalex-web">WEB (JS)</a></li>
+          </ul>
+          <p>Links</p>
+          <ul>
+            <li><a href="http://github.com/ornicar/scalex">Scalex source code</a></li>
+            <li><a href="http://github.com/ornicar/scalex/issues">Issues & requests</a></li>
+            <li><a href="http://github.com/ornicar/scalex/json-api-documentation.md">JSON API documentation</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="main row clearfix">
+        <div class="inner greetings">
+          <h2>Scaladoc Index</h2>
+          Much like <a href="http://www.haskell.org/hoogle/">Hoogle</a> for Haskell, Scalex lets you find Scala functions quickly.<br />
+          <br />
+          <ul>
+            <li><code>map</code> Search for the text "map"</li>
+            <li><code>list map</code> Search for the text "list" and the text "map"</li>
+            <li><code>list[a] => a</code> Search for the type "List[A] => A"</li>
+            <li><code>: list[a] => a</code> Search for the type "List[A] => A"</li>
+            <li><code>a</code> Search for the text "a"</li>
+            <li><code>map: List[A] => (A => B) => List[B]</code> Search for the text "map" and the type "List[A] => (A => B) => List[B]"</li>
+          </ul>
+
+          Searches can be either textual (a list of words), or by type (a type signature) or both. A type search may optionally start with a <code>: </code> symbol. A search is considered a text search unless it contains a combination of text and symbols, or if it starts with <code>: </code>. To search for both a type and a name, place a <code>: </code> between them, for example <code>size: List[A] => Int</code>
+        </div>
+        <div class="results">
+          <div class="status"></div>
+        </div>
+      </div>
+    </div>
+  </div> <!-- /container -->
+
+  <footer class="footer">
+  <p><a href="http://github.com/ornicar/scalex">Source code on GitHub</a> | <a href="http://github.com/ornicar">Thibault Duplessis</a></p>
+  </footer>
+
+  <!-- result template -->
+  <section id="result-template" class="result">
+  <header class="head">
+  <p class="location">
+    <span class="package"></span>
+    <span class="qualified-name"></span>
+  </p>
+  <a class="signature">
+    <span class="parent parent-class"></span><span class="parent parent-params"></span>
+    <strong class="name"></strong><span class="type-params"></span><span class="sep">: </span>
+    <span class="params"></span><span class="params-sep">: </span>
+    <span class="return"></span>
+  </a>
+  </header>
+  <div class="comment-short"></div>
+  <div class="more">
+    <div class="comment-body"></div>
+    <dl class="comment-dl"></dl>
+    <div class="comment-example"></div>
+    <a class="scaladoc-link"></a>
+  </div>
+  </section>
+
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js"></script>
+  <!--<script src="jquery.min.js"></script>-->
+  <script src="scalex.js"></script>
+</body>
 </html>

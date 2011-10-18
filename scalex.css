@@ -58,8 +58,9 @@ html, body {
 .sidebar .inner {
   padding: 20px 10px;
 }
-.sidebar .links {
-  margin-top: 20px;
+.sidebar ul {
+  margin-left: 10px;
+  list-style: none;
 }
 .main {
   margin-left: 200px;
@@ -168,11 +169,14 @@ html, body {
 .result dd p {
   margin: 0;
 }
-.nb_results {
+.status {
   font-family: sans-serif;
   padding: 10px 0 10px 20px;
   background: #fafafa;
   border-bottom: 1px solid #eee;
+}
+.status.loading {
+  background: #d0e0ff;
 }
 
 .error {

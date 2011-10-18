@@ -49,6 +49,7 @@ $(function() {
 
   function search(query, options) {
     options = $.extend({page: 1, callback: function() {}, append: false}, options);
+    $(".status").addClass("loading");
     toggle("search");
     xhr = $.ajax({
       url: $form.attr("data-url"),
@@ -56,12 +57,13 @@ $(function() {
         dataType: "jsonp", jsonp: false, jsonpCallback: "scalex_jc",
         cache: true,
         success: function(data) {
-          if (data.error) var html = "<div class=\"error\">"+nl2br(data.error)+"</pre>"; 
-          else var html = renderResults(data.results); 
-          if (options.page == 1) html = '<div class="nb_results">' + data.nbResults + ' functions found</div>' + html;
+          if (data.error) var html = "<div class=\"status error\">"+nl2br(data.error)+"</pre>"; 
+          else {
+            var html = renderResults(data.results); 
+            if (options.page == 1) html = '<div class="status">' + data.nbResults + ' functions found</div>' + html;
+          }
           if (options.append) $results.append(html);
           else $results.html(html);
-
           toggle("search");
           options.callback();
           if (options.page < data.nbPages) {
