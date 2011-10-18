@@ -168,6 +168,12 @@ html, body {
 .result dd p {
   margin: 0;
 }
+.nb_results {
+  font-family: sans-serif;
+  padding: 10px 0 10px 20px;
+  background: #fafafa;
+  border-bottom: 1px solid #eee;
+}
 
 .error {
   background-color: #F5F5F5;
