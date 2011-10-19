@@ -125,12 +125,19 @@ html, body {
 .result .location {
   margin-bottom: 3px;
 }
-.result .package {
+.result .tag {
   padding: 2px 4px;
-  color: #888;
-  background: #f0f0f0;
   border-radius: 3px;
   font-size: 12px;
+  font-weight: bold;
+}
+.result .package {
+  color: #888;
+  background: #f0f0f0;
+}
+.result .deprecated {
+  background: #f89406;
+  color: #fff;
 }
 .result .qualified-name {
   color: #888;
@@ -147,6 +154,12 @@ html, body {
 }
 .result a.scaladoc-link:hover {
   text-decoration: none;
+}
+.result .deprecation {
+  margin: 8px 0;
+  padding: 5px 10px;
+  background: #fff;
+  border: 1px solid #f0f0f0;
 }
 
 .result dl {

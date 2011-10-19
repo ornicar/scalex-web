@@ -116,6 +116,8 @@ $(function() {
       if (c.result) r.find(".comment-dl").append("<dt>result</dt><dd>" + c.result.html + "</dd>").show();
       if (c.throws) r.find(".comment-throws").html(dl(c.throws));
     }
+    if (d = e.deprecation) r.find(".deprecation").html(d.html);
+    else r.find(".deprecated, .deprecation").remove();
     var a = anchor(e);
     r.find(".signature").attr("href", "#" + a);
     return '<section id="' + a + '" class="result">'+r.html()+'</section>';
