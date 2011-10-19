@@ -47,13 +47,13 @@ $(function() {
     $fun.toggleClass("active");
   }
 
-  function search(query, options) {
-    options = $.extend({page: 1, callback: function() {}, append: false}, options);
-    $(".status").addClass("loading");
+  function search(query, o) {
+    var options = $.extend({page: 1, callback: function() {}, append: false}, o);
+    if (!options.append) $(".status").addClass("loading");
     toggle("search");
     xhr = $.ajax({
       url: $form.attr("data-url"),
-        data: { q: query, callback: "scalex_jc" },
+        data: { q: query, callback: "scalex_jc", page: options.page },
         dataType: "jsonp", jsonp: false, jsonpCallback: "scalex_jc",
         cache: true,
         success: function(data) {
@@ -67,7 +67,7 @@ $(function() {
           toggle("search");
           options.callback();
           if (options.page < data.nbPages) {
-            var end = $results.find(".result:last").offset().top - $(window).height() - 200;
+            var end = $results.find(".result:last").offset().top - $(window).height() - 300;
             $(window).smartscroll(function() {
               if ($(window).scrollTop() > end) {
                 search(query, { page: options.page + 1, append: true });
@@ -162,7 +162,6 @@ $(function() {
             $(this).bind("scroll", event.special.smartscroll.handler);
         },
         teardown: function () {
-          console.debug("tear down!");
             $(this).unbind("scroll", event.special.smartscroll.handler);
         },
         handler: function (event, execAsap) {
