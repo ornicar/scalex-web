@@ -7,8 +7,6 @@ $(function() {
   var $greetings = $(".greetings");
   var xhr;
 
-  //$form.attr("data-url", "http://scalex:8080/");
-
   // put request query in the search input
   if (query = getParameterByName("q")) $input.val(query); 
 
@@ -62,18 +60,18 @@ $(function() {
             var html = renderResults(data.results); 
             if (options.page == 1) html = '<div class="status">' + data.nbResults + ' functions found</div>' + html;
           }
-          if (options.append) $results.append(html);
-          else $results.html(html);
-          toggle("search");
-          options.callback();
-          if (options.page < data.nbPages) {
-            var end = $results.find(".result:last").offset().top - $(window).height() - 300;
-            $(window).smartscroll(function() {
-              if ($(window).scrollTop() > end) {
-                search(query, { page: options.page + 1, append: true });
-              }
-            });
-          }
+    if (options.append) $results.append(html);
+    else $results.html(html);
+    toggle("search");
+    options.callback();
+    if (options.page < data.nbPages) {
+      var end = $results.find(".result:last").offset().top - $(window).height() - 300;
+      $(window).smartscroll(function() {
+        if ($(window).scrollTop() > end) {
+          search(query, { page: options.page + 1, append: true });
+        }
+      });
+    }
         }
     });
   }
@@ -125,7 +123,7 @@ $(function() {
 
   function anchor(fun) {
     var parts = [fun.parent.qualifiedName, fun.parent.typeParams, fun.name, fun.typeParams, fun.valueParams, fun.resultType]
-    return $.trim(parts.join()).replace(/\W/g, "");
+      return $.trim(parts.join()).replace(/\W/g, "");
   }
 
   function dl(obj) {
@@ -149,41 +147,41 @@ $(function() {
     else return decodeURIComponent(results[1].replace(/\+/g, " "));
   }
 
-    /* 
-    * smartscroll: debounced scroll event for jQuery *
-    * https://github.com/lukeshumard/smartscroll
-    * Based on smartresize by @louis_remi: https://github.com/lrbabe/jquery.smartresize.js *
-    * Copyright 2011 Louis-Remi & Luke Shumard * Licensed under the MIT license. *
-    */
+  /* 
+   * smartscroll: debounced scroll event for jQuery *
+   * https://github.com/lukeshumard/smartscroll
+   * Based on smartresize by @louis_remi: https://github.com/lrbabe/jquery.smartresize.js *
+   * Copyright 2011 Louis-Remi & Luke Shumard * Licensed under the MIT license. *
+   */
 
-    var event = $.event,
-		scrollTimeout;
+  var event = $.event,
+      scrollTimeout;
 
-    event.special.smartscroll = {
-        setup: function () {
-            $(this).bind("scroll", event.special.smartscroll.handler);
-        },
-        teardown: function () {
-            $(this).unbind("scroll", event.special.smartscroll.handler);
-        },
-        handler: function (event, execAsap) {
-            // Save the context
-            var context = this,
-		      args = arguments;
+  event.special.smartscroll = {
+    setup: function () {
+      $(this).bind("scroll", event.special.smartscroll.handler);
+    },
+    teardown: function () {
+      $(this).unbind("scroll", event.special.smartscroll.handler);
+    },
+    handler: function (event, execAsap) {
+      // Save the context
+      var context = this,
+      args = arguments;
 
-            // set correct event type
-            event.type = "smartscroll";
+      // set correct event type
+      event.type = "smartscroll";
 
-            if (scrollTimeout) { clearTimeout(scrollTimeout); }
-            scrollTimeout = setTimeout(function () {
-                jQuery.event.handle.apply(context, args);
-            }, execAsap === "execAsap" ? 0 : 100);
-        }
-    };
+      if (scrollTimeout) { clearTimeout(scrollTimeout); }
+      scrollTimeout = setTimeout(function () {
+        jQuery.event.handle.apply(context, args);
+      }, execAsap === "execAsap" ? 0 : 100);
+    }
+  };
 
-    $.fn.smartscroll = function (fn) {
-        return fn ? this.bind("smartscroll", fn) : this.trigger("smartscroll", ["execAsap"]);
-    };
+  $.fn.smartscroll = function (fn) {
+    return fn ? this.bind("smartscroll", fn) : this.trigger("smartscroll", ["execAsap"]);
+  };
 });
 
 //analytics
@@ -194,4 +192,7 @@ if (/scalex\.org/.test(document.domain)) {
     ga.type = 'text/javascript'; ga.async = true; ga.src = 'http://www.google-analytics.com/ga.js';
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
   })();
+}
+else {
+  $form.attr("data-url", "http://scalex:8080/");
 }
