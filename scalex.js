@@ -1,3 +1,5 @@
+var scalexProd = /scalex\.org/.test(document.domain);
+
 $(function() {
 
   var $form = $("form.search-form");
@@ -6,6 +8,8 @@ $(function() {
   var $resultTpl = $("#result-template");
   var $greetings = $(".greetings");
   var xhr;
+
+  if (!scalexProd) $form.attr("data-url", "http://scalex:8080/");
 
   // put request query in the search input
   if (query = getParameterByName("q")) $input.val(query); 
@@ -185,14 +189,11 @@ $(function() {
 });
 
 //analytics
-if (/scalex\.org/.test(document.domain)) {
+if (scalexProd) {
   var _gaq = _gaq || []; _gaq.push(['_setAccount', 'UA-7935029-5']); _gaq.push(['_trackPageview']);
   (function() {
     var ga = document.createElement('script');
     ga.type = 'text/javascript'; ga.async = true; ga.src = 'http://www.google-analytics.com/ga.js';
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
   })();
-}
-else {
-  $form.attr("data-url", "http://scalex:8080/");
 }
