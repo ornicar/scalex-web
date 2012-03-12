@@ -76,10 +76,15 @@ small {
 .greetings, .results {
   display: none;
 }
-.greetings.inner {
+.greetings {
   padding: 20px;
+  font-size: 1.2em;
+  line-height: 2em;
 }
-.greetings ul {
+.greetings code {
+  font-size: 1.1em;
+}
+.greetings li {
   margin-top: 1em;
 }
 
