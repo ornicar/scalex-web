@@ -61,10 +61,11 @@ small {
   width: 200px;
 }
 .sidebar .inner {
-  padding: 20px 10px;
+  padding: 20px 0px;
 }
 .sidebar ul {
-  margin-left: 10px;
+  margin-left: 0px;
+  margin-bottom: 30px;
   list-style: none;
 }
 .main {
@@ -225,8 +226,4 @@ footer {
 
 .footer p {
   text-align: center; /* center align it with the container */
-}
-
-.topbar .btn {
-  border: 0;
 }
