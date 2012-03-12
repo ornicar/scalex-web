@@ -6,6 +6,11 @@ html, body {
   background: #fafafa;
 }
 
+small {
+  font-size: 0.8em;
+  color: #999;
+}
+
 /* Page header tweaks */
 .page-header {
   padding: 20px 20px 2px 20px;

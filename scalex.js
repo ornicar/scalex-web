@@ -1,6 +1,6 @@
 var scalexProd = /scalex\.org/.test(document.domain);
 
-$(function() {
+$(function () {
 
   var $form = $("form.search-form");
   var $input = $form.find("input");
@@ -12,36 +12,48 @@ $(function() {
   if (!scalexProd) $form.attr("data-url", "http://api.scalex.local");
 
   // put request query in the search input
-  if (query = getParameterByName("q")) $input.val(query); 
+  if (query = getParameterByName("q")) $input.val(query);
 
   // instant search
-  $input.bind("keyup", function() {
+  $input.bind("keyup", function () {
     if (xhr) xhr.abort();
-    if (query = $input.val()) search(query); else toggle("greetings");
+    if (query = inputVal()) search(query);
+    else toggle("greetings");
   });
 
   // first search: jump to url hash if possible
-  if (query = $input.val()) {
+  if (query = inputVal()) {
     search(query, {
-      callback: function() { 
+      callback: function () {
         if (window.location.hash && ($fun = $(window.location.hash)).length) {
           activate($fun);
-          $('html,body').animate({"scrollTop": $fun.offset().top}, 300);
+          $('html,body').animate({
+            "scrollTop": $fun.offset().top
+          }, 300);
         }
       }
     });
   } else toggle("greetings");
 
   // expand search results
-  $results.delegate(".signature", "click", function() { activate($(this).closest(".result")); });
+  $results.delegate(".signature", "click", function () {
+    activate($(this).closest(".result"));
+  });
 
   // transform code examples to search links
-  $greetings.find('code').each(function() { $(this).wrap('<a href="?q=' + $(this).text() + '">'); });
+  $greetings.find('code').each(function () {
+    $(this).wrap('<a href="?q=' + $(this).text() + '">');
+  });
+
+  function inputVal() {
+    return $.trim($input.val());
+  }
 
   // toggle between greetings and search results
-  function toggle(s) { 
+  function toggle(s) {
     $(window).unbind("smartscroll");
-    $greetings.toggle(s != "search"); $results.toggle(s == "search"); 
+    $greetings.toggle(s != "search");
+    $results.toggle(s == "search");
   }
 
   function activate($fun) {
@@ -50,33 +62,46 @@ $(function() {
   }
 
   function search(query, o) {
-    var options = $.extend({page: 1, callback: function() {}, append: false}, o);
+    var options = $.extend({
+      page: 1,
+      callback: function () {},
+      append: false
+    }, o);
     if (!options.append) $(".status").addClass("loading");
     toggle("search");
     xhr = $.ajax({
       url: $form.attr("data-url"),
-        data: { q: query, callback: "scalex_jc", page: options.page },
-        dataType: "jsonp", jsonp: false, jsonpCallback: "scalex_jc",
-        cache: true,
-        success: function(data) {
-          if (data.error) var html = "<div class=\"status error\">"+nl2br(data.error)+"</pre>"; 
-          else {
-            var html = renderResults(data.results); 
-            if (options.page == 1) html = '<div class="status">' + data.nbResults + ' functions found</div>' + html;
-          }
-    if (options.append) $results.append(html);
-    else $results.html(html);
-    toggle("search");
-    options.callback();
-    if (options.page < data.nbPages) {
-      var end = $results.find(".result:last").offset().top - $(window).height() - 300;
-      $(window).smartscroll(function() {
-        if ($(window).scrollTop() > end) {
-          search(query, { page: options.page + 1, append: true });
+      data: {
+        q: query,
+        callback: "scalex_jc",
+        page: options.page
+      },
+      dataType: "jsonp",
+      jsonp: false,
+      jsonpCallback: "scalex_jc",
+      cache: true,
+      success: function (data) {
+        if (data.error) var html = "<div class=\"status error\">" + nl2br(data.error) + "</pre>";
+        else {
+          var html = renderResults(data.results);
+          if (options.page == 1) html = '<div class="status"><strong>' + data.nbResults + '</strong> functions found <small>in ' + data.milliseconds + ' ms</small></div>' + html;
         }
-      });
-    }
+        if (options.append) $results.append(html);
+        else $results.html(html);
+        toggle("search");
+        options.callback();
+        if (options.page < data.nbPages) {
+          var end = $results.find(".result:last").offset().top - $(window).height() - 300;
+          $(window).smartscroll(function () {
+            if ($(window).scrollTop() > end) {
+              search(query, {
+                page: options.page + 1,
+                append: true
+              });
+            }
+          });
         }
+      }
     });
   }
 
@@ -91,25 +116,19 @@ $(function() {
   }
 
   function renderResults(results) {
-    var html = "", i;
+    var html = "",
+      i;
     for (i in results) html += renderResult(results[i]);
     return html;
   }
 
   function renderResult(e) {
-    var r = $resultTpl.clone()
-      .find(".parent-class").text(e.parent.name).end()
-      .find(".parent-params").text(e.parent.typeParams).end()
-      .find(".name").text(e.name).end()
-      .find(".type-params").text(e.typeParams).end()
-      .find(".return").text(e.resultType).end()
-      .find(".package").text(e.package).end()
-      .find(".qualified-name").text(e.parent.qualifiedName).end();
+    var r = $resultTpl.clone().find(".parent-class").text(e.parent.name).end().find(".parent-params").text(e.parent.typeParams).end().find(".name").text(e.name).end().find(".type-params").text(e.typeParams).end().find(".return").text(e.resultType).end().find(".package").text(e.package).end().find(".qualified-name").text(e.parent.qualifiedName).end();
     if (e.package == "scala") {
       r.find(".scaladoc-link").text("View " + e.parent.qualifiedName + " on scala-lang API").attr("href", scaladocUrl(e)).show();
-    } 
-    if (e.valueParams) r.find(".params").text(e.valueParams); 
-    else r.find(".params-sep").remove(); 
+    }
+    if (e.valueParams) r.find(".params").text(e.valueParams);
+    else r.find(".params-sep").remove();
     if (c = e.comment) {
       if (c.short) r.find(".comment-short").html(c.short.html);
       if (c.body) r.find(".comment-body").html(c.body.html);
@@ -124,24 +143,23 @@ $(function() {
     else r.find(".doc-url").remove();
     var a = anchor(e);
     r.find(".signature").attr("href", "#" + a);
-    return '<section id="' + a + '" class="result">'+r.html()+'</section>';
+    return '<section id="' + a + '" class="result">' + r.html() + '</section>';
   }
 
   function anchor(fun) {
     var parts = [fun.parent.qualifiedName, fun.parent.typeParams, fun.name, fun.typeParams, fun.valueParams, fun.resultType]
-      return $.trim(parts.join()).replace(/\W/g, "");
+    return $.trim(parts.join()).replace(/\W/g, "");
   }
 
   function dl(obj) {
-    var html = "", k;
-    for (k in obj) html += "<dt>" + k + "</dt>" + "<dd>" + obj[k].html + "</dd>"; 
+    var html = "",
+      k;
+    for (k in obj) html += "<dt>" + k + "</dt>" + "<dd>" + obj[k].html + "</dd>";
     return html;
   }
 
   function scaladocUrl(fun) {
-    return "http://www.scala-lang.org/api/current/"
-      + fun.parent.qualifiedName.replace(/\./g, "/") 
-      + ".html"
+    return "http://www.scala-lang.org/api/current/" + fun.parent.qualifiedName.replace(/\./g, "/") + ".html"
   }
 
   function getParameterByName(name) {
@@ -149,7 +167,7 @@ $(function() {
     var regexS = "[\\?&]" + name + "=([^&#]*)";
     var regex = new RegExp(regexS);
     var results = regex.exec(window.location.href);
-    if(results == null) return "";
+    if (results == null) return "";
     else return decodeURIComponent(results[1].replace(/\+/g, " "));
   }
 
@@ -161,7 +179,7 @@ $(function() {
    */
 
   var event = $.event,
-      scrollTimeout;
+    scrollTimeout;
 
   event.special.smartscroll = {
     setup: function () {
@@ -173,12 +191,14 @@ $(function() {
     handler: function (event, execAsap) {
       // Save the context
       var context = this,
-      args = arguments;
+        args = arguments;
 
       // set correct event type
       event.type = "smartscroll";
 
-      if (scrollTimeout) { clearTimeout(scrollTimeout); }
+      if (scrollTimeout) {
+        clearTimeout(scrollTimeout);
+      }
       scrollTimeout = setTimeout(function () {
         jQuery.event.handle.apply(context, args);
       }, execAsap === "execAsap" ? 0 : 100);
@@ -192,10 +212,15 @@ $(function() {
 
 //analytics
 if (scalexProd) {
-  var _gaq = _gaq || []; _gaq.push(['_setAccount', 'UA-7935029-5']); _gaq.push(['_trackPageview']);
-  (function() {
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-7935029-5']);
+  _gaq.push(['_trackPageview']);
+  (function () {
     var ga = document.createElement('script');
-    ga.type = 'text/javascript'; ga.async = true; ga.src = 'http://www.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    ga.type = 'text/javascript';
+    ga.async = true;
+    ga.src = 'http://www.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(ga, s);
   })();
 }
