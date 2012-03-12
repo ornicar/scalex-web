@@ -127,10 +127,7 @@ $(function () {
   }
 
   function renderResult(e) {
-    var r = $resultTpl.clone().find(".parent-class").text(e.parent.name).end().find(".parent-params").text(e.parent.typeParams).end().find(".name").text(e.name).end().find(".type-params").text(e.typeParams).end().find(".return").text(e.resultType).end().find(".qualified-name").text(e.parent.qualifiedName).end();
-    if (e.package == "scala") {
-      r.find(".scaladoc-link").text("View " + e.parent.qualifiedName + " on scala-lang API").attr("href", scaladocUrl(e)).show();
-    }
+    var r = $resultTpl.clone().find(".parent-class").text(e.parent.name).end().find(".parent-params").text(e.parent.typeParams).end().find(".name").text(e.name).end().find(".type-params").text(e.typeParams).end().find(".return").text(e.resultType).end().find(".package").text(e.package).toggleClass("special", e.package != "scala").end().find(".qualified-name").text(e.parent.qualifiedName).end();
     if (e.valueParams) r.find(".params").text(e.valueParams);
     else r.find(".params-sep").remove();
     if (c = e.comment) {
