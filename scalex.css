@@ -31,6 +31,11 @@ small {
   color: #909090;
   text-shadow: 0 1px 0 #fff;
 }
+.page-header h1 small {
+  font-size: 14px;
+  font-weight: bold;
+  color: #ff8888;
+}
 
 .page-header form {
   margin-left: 180px;
