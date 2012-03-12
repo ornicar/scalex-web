@@ -9,7 +9,7 @@ $(function() {
   var $greetings = $(".greetings");
   var xhr;
 
-  if (!scalexProd) $form.attr("data-url", "http://scalex:8080/");
+  if (!scalexProd) $form.attr("data-url", "http://api.scalex.local");
 
   // put request query in the search input
   if (query = getParameterByName("q")) $input.val(query); 
@@ -120,6 +120,8 @@ $(function() {
     }
     if (d = e.deprecation) r.find(".deprecation").html(d.html);
     else r.find(".deprecated, .deprecation").remove();
+    if (url = e.docUrl) r.find(".doc-url").attr("href", url);
+    else r.find(".doc-url").remove();
     var a = anchor(e);
     r.find(".signature").attr("href", "#" + a);
     return '<section id="' + a + '" class="result">'+r.html()+'</section>';
