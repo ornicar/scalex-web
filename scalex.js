@@ -36,8 +36,12 @@ $(function () {
   } else toggle("greetings");
 
   // expand search results
-  $results.delegate(".signature", "click", function () {
-    activate($(this).closest(".result"));
+  $("div.results").on("click", "a.doc-url", function(e) {
+    e.stopPropagation();
+    return true;
+  });
+  $("div.results").on("click", ".result", function() {
+    activate($(this));
   });
 
   // transform code examples to search links
@@ -123,7 +127,7 @@ $(function () {
   }
 
   function renderResult(e) {
-    var r = $resultTpl.clone().find(".parent-class").text(e.parent.name).end().find(".parent-params").text(e.parent.typeParams).end().find(".name").text(e.name).end().find(".type-params").text(e.typeParams).end().find(".return").text(e.resultType).end().find(".package").text(e.package).end().find(".qualified-name").text(e.parent.qualifiedName).end();
+    var r = $resultTpl.clone().find(".parent-class").text(e.parent.name).end().find(".parent-params").text(e.parent.typeParams).end().find(".name").text(e.name).end().find(".type-params").text(e.typeParams).end().find(".return").text(e.resultType).end().find(".qualified-name").text(e.parent.qualifiedName).end();
     if (e.package == "scala") {
       r.find(".scaladoc-link").text("View " + e.parent.qualifiedName + " on scala-lang API").attr("href", scaladocUrl(e)).show();
     }

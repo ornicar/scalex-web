@@ -90,6 +90,12 @@ small {
   padding: 20px 20px;
   border-bottom: 1px solid #eee;
 }
+.result {
+  cursor: pointer;
+}
+.result:hover {
+  background: #e8f5ff;
+}
 .result p {
   margin: 0;
 }
@@ -131,18 +137,19 @@ small {
   margin-bottom: 3px;
 }
 .result .tag {
-  padding: 2px 4px;
-  border-radius: 3px;
-  font-size: 12px;
+  background-color: #999999;
+  border-radius: 3px 3px 3px 3px;
+  color: #FFFFFF;
+  font-size: 11.05px;
   font-weight: bold;
+  padding: 3px 4px;
+}
+.result .deprecated {
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
 }
 .result .package {
   color: #888;
   background: #f0f0f0;
-}
-.result .deprecated {
-  background: #f89406;
-  color: #fff;
 }
 .result .qualified-name {
   color: #888;
