@@ -54,18 +54,25 @@
         <div class="inner greetings">
           <h2>Scaladoc Index</h2>
           Much like <a href="http://www.haskell.org/hoogle/">Hoogle</a> for Haskell, Scalex lets you find Scala functions quickly.<br />
-          <ul>
-            <li><code>map</code> Search for the text "map"</li>
-            <li><code>list map</code> Search for the text "list" and the text "map"</li>
-            <li><code>list[a] => (a => boolean) => list[a]</code> Search for the type "List[A] => (A => Boolean) => List[A]"</li>
-            <li><code>: list[a] => a</code> Search for the type "List[A] => A"</li>
-            <li><code>conserve: List[a] => (a => b) => List[b]</code> Search for the text "conserve" and the type "List[A] => (A => B) => List[B]"</li>
-          </ul>
-
+          <h3>Names and Types</h3>
           Searches can be either textual (a list of words), or by type (a type signature) or both.<br />
-          A type search may optionally start with a <code>: </code> symbol.<br />
-          A search is considered a text search unless it contains a combination of text and symbols, or if it starts with <code>: </code>.<br />
-          To search for both a type and a name, place a <code>: </code> between them, for example <code>size: List[A] => Int</code>
+          A search is considered a text search unless it contains a combination of text and symbols, or if it starts with <code>:</code>.<br />
+          To search for both a type and a name, place a <code>:</code> between them, for example <code>size: List[A] => Int</code>
+          <h3>Example queries</h3>
+          <ul>
+            <li><code>map</code> Search for the text <em>map</em></li>
+            <li><code>list map</code> Search for the text <em>list</em> and the text <em>map</em></li>
+            <li><code>list[a] => (a => boolean) => list[a]</code> Search for the type <em>List[A] => (A => Boolean) => List[A]</em></li>
+            <li><code>: list[a] => a</code> Search for the type <em>List[A] => A</em></li>
+            <li><code>conserve: List[a] => (a => b) => List[b]</code> Search for the text <em>conserve</em> and the type <em>List[A] => (A => B) => List[B]</em></li>
+          </ul>
+          <h3>Packages</h3>
+          You can reduce the search scope to one or more packages:
+          <ul>
+            <li><code>foldl +scala</code> Search <em>foldl</em> only in scala</li>
+            <li><code>foldl +scalaz</code> Search <em>foldl</em> only in scalaz</li>
+            <li><code>foldl -scalaz</code> Search <em>foldl</em> everywhere except in scalaz</li>
+          </ul>
         </div>
         <div class="results">
           <div class="status">...</div>
