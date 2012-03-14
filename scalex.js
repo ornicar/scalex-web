@@ -46,7 +46,7 @@ $(function () {
 
   // transform code examples to search links
   $greetings.find('code').each(function () {
-    $(this).wrap('<a href="?q=' + $(this).text() + '">');
+    $(this).wrap('<a href="?q=' + encodeURIComponent($(this).text()) + '">');
   });
 
   function inputVal() {
